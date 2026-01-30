@@ -1,34 +1,39 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+import { motion } from "framer-motion";
 
 const sensors = [
   {
     id: 1,
-    name: 'Forest Sensor 01',
+    name: "Forest Sensor 01",
     lat: 37.7749,
     lng: -122.4194,
-    threat: 'High',
+    threat: "High",
   },
   {
     id: 2,
-    name: 'Valley Sensor 02',
+    name: "Valley Sensor 02",
     lat: 37.8044,
     lng: -122.2711,
-    threat: 'Medium',
+    threat: "Medium",
   },
   {
     id: 3,
-    name: 'River Sensor 03',
+    name: "River Sensor 03",
     lat: 37.6879,
     lng: -122.4702,
-    threat: 'Low',
+    threat: "Low",
   },
 ];
 
 const mapContainerStyle = {
-  width: '100%',
-  height: '80vh',
+  width: "100%",
+  height: "80vh",
 };
 
 const center = {
@@ -40,10 +45,10 @@ export default function Map() {
   const [selectedSensor, setSelectedSensor] = useState(null);
 
   const getIcon = (threat) => {
-    const base = 'http://maps.google.com/mapfiles/ms/icons/';
-    if (threat === 'High') return `${base}red-dot.png`;
-    if (threat === 'Medium') return `${base}yellow-dot.png`;
-    if (threat === 'Low') return `${base}green-dot.png`;
+    const base = "http://maps.google.com/mapfiles/ms/icons/";
+    if (threat === "High") return `${base}red-dot.png`;
+    if (threat === "Medium") return `${base}yellow-dot.png`;
+    if (threat === "Low") return `${base}green-dot.png`;
     return null;
   };
 
@@ -70,8 +75,12 @@ export default function Map() {
         </motion.h1>
 
         <div className="rounded-lg overflow-hidden shadow-lg border-4 border-white">
-          <LoadScript googleMapsApiKey="AIzaSyDT9akE_45-s5tTsj3Ri39N1RiZxttx6Os">
-            <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={10}>
+          <LoadScript googleMapsApiKey="">
+            <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              center={center}
+              zoom={10}
+            >
               {sensors.map((sensor) => (
                 <Marker
                   key={sensor.id}
@@ -83,12 +92,20 @@ export default function Map() {
 
               {selectedSensor && (
                 <InfoWindow
-                  position={{ lat: selectedSensor.lat, lng: selectedSensor.lng }}
+                  position={{
+                    lat: selectedSensor.lat,
+                    lng: selectedSensor.lng,
+                  }}
                   onCloseClick={() => setSelectedSensor(null)}
                 >
                   <div>
                     <h2 className="font-bold text-lg">{selectedSensor.name}</h2>
-                    <p>Threat: <span className="font-semibold">{selectedSensor.threat}</span></p>
+                    <p>
+                      Threat:{" "}
+                      <span className="font-semibold">
+                        {selectedSensor.threat}
+                      </span>
+                    </p>
                   </div>
                 </InfoWindow>
               )}
